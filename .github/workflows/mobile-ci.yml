@@ -1,0 +1,69 @@
+name: Mobile CI
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/mobile-ci.yml'
+  pull_request:
+    branches: [main, pre-production]
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/mobile-ci.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: Lint · Type Check · Unit & Component Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+          cache-dependency-path: mobile/pnpm-lock.yaml
+
+      - name: Install dependencies
+        working-directory: mobile
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        working-directory: mobile
+        run: pnpm run lint
+
+      - name: Type check
+        working-directory: mobile
+        run: pnpm exec tsc --noEmit
+
+      - name: Unit tests
+        working-directory: mobile
+        run: pnpm exec jest --ci --testPathPattern="test/unit"
+        timeout-minutes: 10
+
+      - name: Component tests
+        working-directory: mobile
+        run: pnpm exec jest --ci --testPathPattern="test/components"
+        timeout-minutes: 10
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-output
+          path: mobile/coverage/
+          retention-days: 3

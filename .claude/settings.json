@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | { read -r f; case \"$f\" in *.ts|*.tsx) TSC_OUT=$(pnpm exec tsc --noEmit 2>&1 | grep -v '^test/mocks'); LINT_OUT=$(pnpm run lint 2>&1); LINT_STATUS=$?; if [ -n \"$TSC_OUT\" ] || [ $LINT_STATUS -ne 0 ]; then REASON=$(printf '%s\\n%s' \"$TSC_OUT\" \"$LINT_OUT\"); jq -n --arg reason \"$REASON\" '{\"decision\":\"block\",\"reason\":$reason}'; fi ;; esac; }",
+            "timeout": 120,
+            "statusMessage": "Running tsc + eslint..."
+          }
+        ]
+      }
+    ]
+  }
+}

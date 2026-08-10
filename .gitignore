@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Android — Gradle/Kotlin build output + machine-specific config
+mobile/android/build/
+mobile/android/.gradle/
+mobile/android/.kotlin/
+mobile/android/.cxx/
+mobile/android/app/build/
+mobile/android/app/release/
+mobile/android/local.properties
+*.iml
+*.hprof
+*.jsbundle
+
+# iOS — Xcode / CocoaPods
+mobile/ios/build/
+mobile/ios/Pods/
+mobile/ios/DerivedData/
+mobile/ios/**/xcuserdata/
+mobile/ios/**/*.xcuserstate
+
+# Native secrets / signing keys (never commit production keystores)
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+*.keystore
+!mobile/android/app/debug.keystore
+
+# Environment
+.env*
+
+# Testing
+coverage/
+
+# Logs
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE/editor
+.vscode/
+.idea/
+
+# Claude Code local settings (may contain tokens)
+.claude/settings.local.json
+
+# Factory session state (ephemeral — deleted after ship)
+.factory-state.json
+
+# Handoff/temp session files
+HANDOFF.md

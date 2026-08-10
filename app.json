@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "React Native Starter",
+    "slug": "react-native-starter",
+    "version": "1.0.0",
+    "scheme": "rnstarter",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#11326d"
+    },
+    "android": {
+      "package": "com.example.rnstarter",
+      "adaptiveIcon": {
+        "backgroundColor": "#0f172a"
+      }
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.example.rnstarter"
+    },
+    "plugins": [
+      "expo-localization"
+    ]
+  }
+}

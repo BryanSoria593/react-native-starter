@@ -1,0 +1,43 @@
+{
+  "common": {
+    "back": "Volver",
+    "cancel": "Cancelar",
+    "accept": "Aceptar"
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar Sesión",
+      "subtitle": "Ingresa tus credenciales para continuar",
+      "usernameLabel": "Usuario",
+      "usernamePlaceholder": "Ingresa tu usuario",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "submitButton": "Entrar",
+      "invalidCredentials": "Usuario o contraseña incorrectos"
+    }
+  },
+  "todos": {
+    "tabTitle": "Tareas"
+  },
+  "settings": {
+    "tabTitle": "Ajustes",
+    "title": "Ajustes",
+    "darkMode": "Modo oscuro",
+    "language": "Idioma",
+    "spanish": "Español",
+    "english": "Inglés"
+  },
+  "profile": {
+    "tabTitle": "Perfil",
+    "title": "Perfil",
+    "role": "Rol: %{role}",
+    "logout": "Cerrar Sesión"
+  },
+  "moduleRunner": {
+    "title": "Módulo",
+    "moduleNotFound": "Módulo no encontrado: %{moduleId}"
+  },
+  "validation": {
+    "requiredFields": "Completa todos los campos"
+  }
+}

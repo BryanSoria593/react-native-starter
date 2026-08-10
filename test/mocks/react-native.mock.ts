@@ -78,7 +78,10 @@ export const KeyboardAvoidingView = passThrough('KeyboardAvoidingView');
 export const SafeAreaView = passThrough('SafeAreaView');
 export const StatusBar = () => null;
 
-export const Keyboard = {
+export const Keyboard: {
+  dismiss: () => void;
+  addListener: () => { remove: () => void };
+} = {
   dismiss: jest.fn<() => void>(),
   addListener: jest.fn<() => { remove: () => void }>(() => ({ remove: jest.fn<() => void>() })),
 };
@@ -92,21 +95,33 @@ export const Platform = {
   Version: 30,
 };
 
-export const Alert = { alert: jest.fn<(title: string) => void>() };
-export const Vibration = {
+export const Alert: { alert: (title: string) => void } = {
+  alert: jest.fn<(title: string) => void>(),
+};
+export const Vibration: { vibrate: (duration?: number) => void; cancel: () => void } = {
   vibrate: jest.fn<(duration?: number) => void>(),
   cancel: jest.fn<() => void>(),
 };
 
-export const StyleSheet = {
+export const StyleSheet: {
+  create: <T extends object>(styles: T) => T;
+  flatten: (style: unknown) => unknown;
+  hairlineWidth: number;
+  absoluteFillObject: { position: 'absolute'; left: number; right: number; top: number; bottom: number };
+} = {
   create: <T extends object>(styles: T): T => styles,
   flatten: jest.fn<(style: unknown) => unknown>((style: unknown) => style),
   hairlineWidth: 1,
   absoluteFillObject: { position: 'absolute' as const, left: 0, right: 0, top: 0, bottom: 0 },
 };
 
-export const Dimensions = {
-  get: jest.fn<() => { width: number; height: number; scale: number; fontScale: number }>(() => ({
+type DimensionsValue = { width: number; height: number; scale: number; fontScale: number };
+
+export const Dimensions: {
+  get: () => DimensionsValue;
+  addEventListener: () => { remove: () => void };
+} = {
+  get: jest.fn<() => DimensionsValue>(() => ({
     width: 375,
     height: 812,
     scale: 2,
@@ -115,11 +130,13 @@ export const Dimensions = {
   addEventListener: jest.fn<() => { remove: () => void }>(() => ({ remove: jest.fn<() => void>() })),
 };
 
-export const useWindowDimensions = jest.fn<() => {
-  width: number;
-  height: number;
-  scale: number;
-  fontScale: number;
-}>(() => ({ width: 375, height: 812, scale: 2, fontScale: 1 }));
+export const useWindowDimensions: () => DimensionsValue = jest.fn<() => DimensionsValue>(() => ({
+  width: 375,
+  height: 812,
+  scale: 2,
+  fontScale: 1,
+}));
 
-export const useColorScheme = jest.fn<() => 'light' | 'dark' | null>(() => 'light');
+export const useColorScheme: () => 'light' | 'dark' | null = jest.fn<() => 'light' | 'dark' | null>(
+  () => 'light',
+);

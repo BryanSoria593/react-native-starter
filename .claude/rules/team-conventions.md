@@ -49,6 +49,7 @@ From `mobile/`:
 - Maximum 50 characters (emoji + type + description)
 - No periods at the end
 - Never push without approval; never force-push protected branches
+- No `Co-Authored-By` trailer — commits are authored solely by the human contributor
 
 ### Examples
 
